@@ -18,11 +18,16 @@ class Program
         var fileName = @"C:\\Proyectos\\SOAINT\\output.txt";                                                                  //Console.WriteLine(openAIKey);
                                                                                                                               //var fileName = @"C:\\Proyectos\\SOAINT\\output.txt";
 
-        var rootPath = @"C:\Proyectos\SOAINT";       
-        var seccionDependencias = new SeccionDependencias(rootPath);
-        seccionDependencias.ToFile();
-        
+        var rootPath = @"C:\Proyectos\SOAINT";
+        #region dependencias
+        //var seccionDependencias = new SeccionDependencias(rootPath);
+        //seccionDependencias.ToFile();
+        #endregion
 
+        #region apis
+        var seccionApis = new SeccionApis(rootPath);
+        seccionApis.GenerateApiDocumentation();
+        #endregion
         /*
         
         var longTextArray = File.ReadAllLines(fileName);
