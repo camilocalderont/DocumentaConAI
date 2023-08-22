@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using OpenAI;
 using DotNetEnv;
 using OpenAI.Models;
-
+using DocumentaConAI.Api;
 class Program
 {
     static async Task Main()
@@ -25,9 +25,13 @@ class Program
         #endregion
 
         #region apis
-        var seccionApis = new SeccionApis(rootPath);
-        seccionApis.GenerateApiDocumentation();
+        var seccionApis = new ControllerDocumentationGenerator(rootPath);
+        seccionApis.GenerateApiDocumentationV2();
         #endregion
+
+
+
+
         /*
         
         var longTextArray = File.ReadAllLines(fileName);
