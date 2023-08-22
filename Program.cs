@@ -7,6 +7,7 @@ using OpenAI;
 using DotNetEnv;
 using OpenAI.Models;
 using DocumentaConAI.Api;
+using DocumentaConAI.Library;
 class Program
 {
     static async Task Main()
@@ -20,7 +21,7 @@ class Program
 
         var rootPath = @"C:\Proyectos\SOAINT";
         #region dependencias
-        //var seccionDependencias = new SeccionDependencias(rootPath);
+        //var seccionDependencias = new LibraryDocumentationGenerator(rootPath);
         //seccionDependencias.ToFile();
         #endregion
 
@@ -30,7 +31,7 @@ class Program
         #endregion
 
 
-
+        #region generación de documentación en código
 
         /*
         
@@ -47,20 +48,8 @@ class Program
         }
         Console.WriteLine(response);
         */
+        #endregion
     }
 
-    public static async Task<string> callOpenAi(string prompt)
-    {
-        try
-        {
-            var api = new OpenAIClient("");
-            var result = await api.CompletionsEndpoint.CreateCompletionAsync(prompt, temperature: 0.2, topP: 0.3, frequencyPenalty: 0.5, maxTokens: 2000, model: Model.Davinci) ;
-            return result;
 
-        }
-        catch (Exception ex)
-        {
-            return ex.ToString();
-        }
-    }
 }

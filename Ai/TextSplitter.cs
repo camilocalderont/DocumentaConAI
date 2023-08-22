@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DocumentaConAI
+namespace DocumentaConAI.Ai
 {
     public class TextSplitter
     {
@@ -19,7 +19,7 @@ namespace DocumentaConAI
             string chunk = "";
             foreach (var word in words)
             {
-                if ((chunk.Length + word.Length) > EstimatedMaxChars)
+                if (chunk.Length + word.Length > EstimatedMaxChars)
                 {
                     chunks.Add(chunk);
                     chunk = word;

@@ -8,20 +8,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DocumentaConAI
+namespace DocumentaConAI.Library
 {
-    public class SeccionDependencias
+    public class LibraryDocumentationGenerator
     {
         private string rootPath;
 
-        public SeccionDependencias(string rootPath)
+        public LibraryDocumentationGenerator(string rootPath)
         {
             this.rootPath = rootPath;
         }
 
         public void ToFile()
         {
-            var applications = Directory.GetDirectories(this.rootPath);
+            var applications = Directory.GetDirectories(rootPath);
             foreach (var application in applications)
             {
                 var projectName = Path.GetFileName(application);
@@ -99,11 +99,11 @@ namespace DocumentaConAI
             }
         }
 
-        private  void WriteToWord(string projectName, Dictionary<string, List<dynamic>> allDependencies)
+        private void WriteToWord(string projectName, Dictionary<string, List<dynamic>> allDependencies)
         {
             if (allDependencies.Values.Any(list => list.Count > 0))
             {
-                string fileName = $"{this.rootPath}\\{projectName}.docx";
+                string fileName = $"{rootPath}\\{projectName}.docx";
                 using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(fileName, WordprocessingDocumentType.Document))
                 {
                     MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
@@ -154,15 +154,15 @@ namespace DocumentaConAI
                             TableCell cell2 = CreateTableCell(repoEntry.Key, "18");
                             TableCell cell3;
                             TableCell cell4;
-                            
-                           
+
+
                             if (dependency is string depString)
                             {
                                 string[] parts = depString.Split(new[] { ':' }, 2);
-                                cell3 = CreateTableCell(parts[0].Trim(),"18");
+                                cell3 = CreateTableCell(parts[0].Trim(), "18");
                                 cell4 = CreateTableCell(parts[1].Trim(), "18");
                             }
-                            else if (dependency is Newtonsoft.Json.Linq.JProperty jProp)
+                            else if (dependency is JProperty jProp)
                             {
                                 cell3 = CreateTableCell(jProp.Name, "18");
                                 cell4 = CreateTableCell(jProp.Value.ToString(), "18");
@@ -196,7 +196,7 @@ namespace DocumentaConAI
             runProp.Append(size);
 
             Run run = new Run(new Text(content));
-            run.PrependChild<RunProperties>((RunProperties?)runProp.CloneNode(true));
+            run.PrependChild((RunProperties?)runProp.CloneNode(true));
 
             return new TableCell(new Paragraph(run));
         }

@@ -151,7 +151,7 @@ namespace DocumentaConAI.Api
                 #region Obtener Ruta
                 endpointInfo.HttpMethod = endpoint.AttributeLists.SelectMany(attrList => attrList.Attributes)
                     .First(attr => HttpVerbs.Contains(attr.Name.ToString()))
-                    .Name.ToString();
+                    .Name.ToString().Replace("Http","");
                 var routeAttribute = endpoint.AttributeLists.SelectMany(attrList => attrList.Attributes)
                     .FirstOrDefault(attr => attr.Name.ToString() == "Route");
                 if (routeAttribute != null)

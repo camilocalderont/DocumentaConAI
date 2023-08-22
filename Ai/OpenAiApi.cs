@@ -3,7 +3,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text;
 using System.Net.Http.Headers;
-namespace DocumentaConAI
+using OpenAI;
+
+namespace DocumentaConAI.Ai
 {
 
     public class OpenAiApi
@@ -28,7 +30,7 @@ namespace DocumentaConAI
         {
             var requestBody = new
             {
-                prompt = prompt,
+                prompt,
                 max_tokens = maxTokens,
                 engine = Engine,
                 temperature = Temperature,
@@ -45,6 +47,7 @@ namespace DocumentaConAI
             string generatedText = jsonData.choices[0].text;
             return generatedText;
         }
+
     }
 
 }
